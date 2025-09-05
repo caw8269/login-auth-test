@@ -12,5 +12,14 @@
     "license": "ISC",
     "dependencies": {
         "mongodb": "^6.19.0"
-    }
+    },
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/caw8269/login-auth-test.git"
+    },
+    "bugs": {
+        "url": "https://github.com/caw8269/login-auth-test/issues"
+    },
+    "homepage": "https://github.com/caw8269/login-auth-test#readme"
 }
