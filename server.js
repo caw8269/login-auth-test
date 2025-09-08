@@ -41,6 +41,19 @@ app.use("/", routes);
 
 //start the server
 const port = 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
+
+// Listen for 'close' command from stdin in the terminal
+if (process.stdin.isTTY) {
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', (data) => {
+        if (data.trim() === 'close') {
+            server.close(() => {
+                console.log('Server closed by terminal command');
+                process.exit(0);
+            });
+        }
+    });
+}
