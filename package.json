@@ -1,11 +1,10 @@
 {
-    "name": "nodejs-project",
+    "name": "loginauth",
     "version": "1.0.0",
     "description": "A simple Node.js project",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js",
-        "test": "echo \"No tests specified\" && exit 0"
+        "start": "node server.js"
     },
     "keywords": [],
     "author": "",
