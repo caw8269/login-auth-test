@@ -13,7 +13,7 @@ router.get("/login", (req, res) => {
     if(req.session.name){
         res.redirect("/");
     }
-    return res.render("/login", { error: null })
+    return res.render("login", { error: null })
 });
 router.get("/register", (req, res) => {
     if(req.session.name) {
