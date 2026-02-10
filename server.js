@@ -3,11 +3,10 @@
 // Imports //
 const express = require("express");
 const passport = require("passport");
-const User = require("./models.js");
 const localStrategy = require("./passp.js");
 const controllers = require("./controller.js");
 const cookieParser = require("cookie-parser");
-const connectDB = require("./db");
+const { getUsers, addUser } = require("./csv.js");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const routes = require("./pages.js");
@@ -15,7 +14,6 @@ const session = require("express-session");
 
 // Main Server //
 const app = express()
-connectDB()
 app.use(
     session({
         secret: "GFGLogin346",
@@ -31,9 +29,11 @@ app.use(passport.session());
 app.set("view engine", "ejs");
 
 //serialize and deserialize user objects to maintain user sessions
-passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => done(err, user));
+passport.serializeUser((user, done) => done(null, user.username));
+passport.deserializeUser( async (username, done) => {
+    const users = await getUsers();
+    const user = users.find(u => u.username === username);
+    done(null, user || false);
 });
 //Use the routes
 app.use("/api/", controllers);

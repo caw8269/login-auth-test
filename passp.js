@@ -1,14 +1,15 @@
 // passp.js
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("./models");
 const bcrypt = require("bcrypt");
+const {getUsers} = require("./csv");
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {
         try {
             //Find the user by username in the database
-            const user = await User.findOne({ username });
+            const users = await getUsers();
+            const user = users.find(u => u.username === username)
             //if the user does not exist, return an error
             if(!user) {
                 return done(null, false, { error: "Incorrect Username" });
